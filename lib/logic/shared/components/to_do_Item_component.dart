@@ -13,28 +13,34 @@ Widget toDoItemComponent(ToDoItemModel model, int index) {
     padding: const EdgeInsets.all(15),
     child: Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              model.header,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
+        SizedBox(
+          width: 300,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                model.header,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    overflow: TextOverflow.ellipsis),
               ),
-            ),
-            Text(
-              model.description,
-              style: const TextStyle(color: Colors.white),
-            )
-          ],
+              Text(
+                model.description,
+                style: const TextStyle(
+                  color: Colors.white,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
+          ),
         ),
         const Spacer(),
         Consumer(
-          builder: (context,ToDoProvider provider, child) => IconButton(
+          builder: (context, ToDoProvider provider, child) => IconButton(
               onPressed: () {
-                  provider.removeItem(index);
+                provider.removeItem(index);
               },
               icon: const Icon(
                 Icons.remove_circle_outline,

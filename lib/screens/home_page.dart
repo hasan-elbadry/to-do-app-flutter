@@ -22,15 +22,19 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
-        child: Consumer(
-          builder: (context, ToDoProvider provider, child) => ListView.builder(
+        child: Consumer(builder: (context, ToDoProvider provider, child) {
+          while (provider.data.isEmpty) {
+            provider.getAllData();
+            return const CircularProgressIndicator();
+          }
+          return ListView.builder(
             itemBuilder: (context, index) => toDoItemComponent(
-                ToDoItemModel(provider.lists[index].header,
-                    provider.lists[index].description),
+                ToDoItemModel(provider.data[index].header,
+                    provider.data[index].description),
                 index),
-            itemCount: provider.lists.length,
-          ),
-        ),
+            itemCount: provider.data.length,
+          );
+        }),
       ),
       floatingActionButton: Consumer(
         builder: (context, ToDoProvider prov, child) => FloatingActionButton(
